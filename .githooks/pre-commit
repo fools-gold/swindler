@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# install/update by running: `ln -fs ../../.githooks/pre-commit .git/hooks/pre-commit`
+
+RUBY=0
+
+RUBY_FILES=$(git diff --cached --name-only --diff-filter=ACM --exit-code -- '*.rb')
+
+if [ $? -eq 1 ]; then
+  rubocop -f emacs -R -D --force-exclusion $RUBY_FILES
+  RUBY=$?
+fi
+
+SCSS=0
+
+SCSS_FILES=$(git diff --cached --name-only --diff-filter=ACM --exit-code -- '*.scss')
+
+if [ $? -eq 1 ]; then
+  scss-lint $SCSS_FILES
+  SCSS=$?
+fi
+
+if [ $RUBY -ne 0 ] || ([ $SCSS -ne 0 ] && [ $SCSS -ne 66 ]); then
+  exit 1
+fi

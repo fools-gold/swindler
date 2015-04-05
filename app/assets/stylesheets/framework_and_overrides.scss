@@ -1,0 +1,12 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+img {
+  @extend .img-responsive;
+}
+
+main {
+  @extend .container;
+  padding-bottom: 50px;
+  padding-top: 70px;
+}

@@ -1,0 +1,21 @@
+AllCops:
+  Exclude:
+    - 'db/schema.rb'
+    - 'db/migrate/*'
+  RunRailsCops: true
+
+Style/AlignHash:
+  EnforcedLastArgumentHashStyle: always_ignore
+Style/Documentation:
+  Enabled: false
+Style/ExtraSpacing:
+  Enabled: true
+Style/MultilineOperationIndentation:
+  EnforcedStyle: indented
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+
+Metrics/LineLength:
+  Max: 120

@@ -1,0 +1,15 @@
+exclude:
+  - vendor/**
+
+linters:
+  HexLength:
+    style: long
+  PropertySortOrder:
+    enabled: concentric # https://github.com/causes/scss-lint/blob/master/data/property-sort-orders/concentric.txt
+  PropertySpelling:
+    extra_properties: []
+  SelectorFormat:
+    style: hyphenated_lowercase
+    ignored_names: []
+  StringQuotes:
+    style: double_quotes
