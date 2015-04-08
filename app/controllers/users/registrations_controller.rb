@@ -43,7 +43,7 @@ before_filter :configure_account_update_params, only: [:update]
   end
 
   def configure_account_update_params
-    devise_parameter_sanitizer.for(:account_update) << [:username, :email]
+    devise_parameter_sanitizer.for(:account_update) << [:username, :email, :timezone]
   end
 
   # The path used after sign up.
