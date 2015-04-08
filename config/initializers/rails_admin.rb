@@ -33,4 +33,8 @@ RailsAdmin.config do |config|
   end
 
   config.included_models = ["User"]
+
+  config.model "User" do
+    object_label_method :username
+  end
 end
