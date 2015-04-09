@@ -38,5 +38,6 @@ RailsAdmin.config do |config|
 
   config.model "User" do
     object_label_method :username
+    edit { exclude_fields :slug }
   end
 end
