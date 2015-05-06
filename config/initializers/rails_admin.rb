@@ -1,5 +1,4 @@
 RailsAdmin.config do |config|
-
   ### Popular gems integration
 
   ## == Authenticate using Devise ==
@@ -19,8 +18,8 @@ RailsAdmin.config do |config|
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
   config.actions do
-    dashboard                     # mandatory
-    index                         # mandatory
+    dashboard # mandatory
+    index # mandatory
     new
     export
     bulk_delete
@@ -34,10 +33,14 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.included_models = ["User"]
+  config.included_models = %w(User Game)
 
   config.model "User" do
     object_label_method :username
+    edit { exclude_fields :slug }
+  end
+
+  config.model "Game" do
     edit { exclude_fields :slug }
   end
 end
