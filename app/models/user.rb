@@ -34,4 +34,12 @@ class User < ActiveRecord::Base
       end
     end
   end
+
+  def follows?(user)
+    followings.include? user
+  end
+
+  def followed_by?(user)
+    followers.include? user
+  end
 end
