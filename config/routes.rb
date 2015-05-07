@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get ":id", to: "users#show", as: :user
 
   scope ":user_id", as: :user do
-    resources :following, only: [:index], as: "followings", controller: "users/followings"
+    resources :following, only: [:index, :create, :destroy], as: "followings", controller: "users/followings"
     resources :followers, only: [:index], controller: "users/followers"
   end
 end
