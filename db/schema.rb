@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506072506) do
+ActiveRecord::Schema.define(version: 20150506193319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "followships", force: :cascade do |t|
+    t.integer  "follower_id", null: false
+    t.integer  "followed_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "followships", ["followed_id"], name: "index_followships_on_followed_id", using: :btree
+  add_index "followships", ["follower_id", "followed_id"], name: "index_followships_on_follower_id_and_followed_id", unique: true, using: :btree
+  add_index "followships", ["follower_id"], name: "index_followships_on_follower_id", using: :btree
 
   create_table "friendly_id_slugs", force: :cascade do |t|
     t.string   "slug",                      null: false
@@ -55,6 +66,8 @@ ActiveRecord::Schema.define(version: 20150506072506) do
     t.string   "timezone",                               null: false
     t.boolean  "admin",                  default: false, null: false
     t.string   "slug"
+    t.integer  "followings_count",       default: 0,     null: false
+    t.integer  "followers_count",        default: 0,     null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -62,4 +75,6 @@ ActiveRecord::Schema.define(version: 20150506072506) do
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "followships", "users", column: "followed_id", on_delete: :cascade
+  add_foreign_key "followships", "users", column: "follower_id", on_delete: :cascade
 end
