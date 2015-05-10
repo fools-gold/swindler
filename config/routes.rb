@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resources :users, only: []
 
+  resource :feed, only: [:show]
+
   get ":id", to: "users#show", as: :user
 
   scope ":user_id", as: :user do

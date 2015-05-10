@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   around_action :user_timezone, if: :user_signed_in?
 
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || feed_path
+  end
+
   private
 
   def user_timezone(&block)
