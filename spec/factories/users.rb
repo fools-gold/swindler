@@ -8,6 +8,7 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     password { Faker::Internet.password }
     username { Faker::Internet.user_name(nil, %w(.)) }
+    bio { Faker::Lorem.sentence }
 
     trait :with_followings do
       after(:create) do |user, evaluator|

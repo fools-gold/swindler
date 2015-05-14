@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, format: { with: /\A[a-z][a-z0-9.]+\Z/ }
   validates :username, uniqueness: true, case_sensitive: false
+  validates :bio, presence: true, allow_blank: true, length: { maximum: 140 }
   validates :timezone, presence: true, inclusion: { in: ActiveSupport::TimeZone.zones_map(&:name).keys }
 
   before_validation { self.timezone ||= Rails.application.config.time_zone }
