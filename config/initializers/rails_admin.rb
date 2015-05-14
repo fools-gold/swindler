@@ -33,7 +33,7 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  config.included_models = %w(User Game)
+  config.included_models = %w(User Game Story)
 
   config.model "User" do
     object_label_method :username

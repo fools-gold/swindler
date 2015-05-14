@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506193319) do
+ActiveRecord::Schema.define(version: 20150514151509) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,13 +41,29 @@ ActiveRecord::Schema.define(version: 20150506193319) do
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
   create_table "games", force: :cascade do |t|
-    t.string   "title",      null: false
+    t.string   "title",                     null: false
     t.string   "slug"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "stories_count", default: 0, null: false
+  end
+
+  add_index "games", ["slug"], name: "index_games_on_slug", unique: true, using: :btree
+
+  create_table "stories", force: :cascade do |t|
+    t.text     "body",       null: false
+    t.integer  "by_id",      null: false
+    t.integer  "of_id",      null: false
+    t.integer  "game_id",    null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "games", ["slug"], name: "index_games_on_slug", unique: true, using: :btree
+  add_index "stories", ["by_id", "of_id", "game_id"], name: "index_stories_on_by_id_and_of_id_and_game_id", using: :btree
+  add_index "stories", ["by_id", "of_id"], name: "index_stories_on_by_id_and_of_id", using: :btree
+  add_index "stories", ["by_id"], name: "index_stories_on_by_id", using: :btree
+  add_index "stories", ["game_id"], name: "index_stories_on_game_id", using: :btree
+  add_index "stories", ["of_id"], name: "index_stories_on_of_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",    null: false
@@ -68,13 +84,17 @@ ActiveRecord::Schema.define(version: 20150506193319) do
     t.string   "slug"
     t.integer  "followings_count",       default: 0,     null: false
     t.integer  "followers_count",        default: 0,     null: false
+    t.integer  "stories_count",          default: 0,     null: false
+    t.integer  "stories_of_count",       default: 0,     null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
-  add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "followships", "users", column: "followed_id", on_delete: :cascade
   add_foreign_key "followships", "users", column: "follower_id", on_delete: :cascade
+  add_foreign_key "stories", "games", on_delete: :cascade
+  add_foreign_key "stories", "users", column: "by_id", on_delete: :cascade
+  add_foreign_key "stories", "users", column: "of_id", on_delete: :cascade
 end
