@@ -15,6 +15,9 @@ class User < ActiveRecord::Base
   has_many :inverse_followships, foreign_key: "followed_id", class_name: "Followship", dependent: :destroy
   has_many :followers, through: :inverse_followships, source: :follower
 
+  has_many :stories, foreign_key: "by_id", dependent: :destroy
+  has_many :stories_of, foreign_key: "of_id", class_name: "Story", dependent: :destroy
+
   validates :username, presence: true, format: { with: /\A[a-z][a-z0-9.]+\Z/ }
   validates :username, uniqueness: true, case_sensitive: false
   validates :timezone, presence: true, inclusion: { in: ActiveSupport::TimeZone.zones_map(&:name).keys }
