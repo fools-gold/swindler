@@ -44,7 +44,7 @@ module Users
     end
 
     def configure_account_update_params
-      devise_parameter_sanitizer.for(:account_update) << [:username, :email, :bio, :timezone]
+      devise_parameter_sanitizer.for(:account_update) << [:username, :email, :bio, :profile_picture, :timezone]
     end
 
     # The path used after sign up.

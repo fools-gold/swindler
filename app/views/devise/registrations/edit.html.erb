@@ -12,6 +12,7 @@
 
     <%= f.input :username, required: true, hint: "must be lowercase and cannot contain spaces" %>
     <%= f.input :bio, hint: "must not be longer than 140 characters" %>
+    <%= f.input :profile_picture, hint: "file size must be less than 2 MB" %>
     <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false %>
     <%= f.input :password_confirmation, required: false %>
     <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true %>
