@@ -1,0 +1,14 @@
+.container.feeds-container
+  h1 Swindler Feed Example
+  .row
+    .user-avatar.from.col-md-3
+      img.img-thumbnail src="http://placehold.it/100x100" alt="..."
+      span.name user thumbnail
+    .col-md-6
+      p = Faker::Lorem.sentence
+      .played-boardgame.text-right
+        span.name boardgame name
+        img.img-thumbnail src="http://placehold.it/100x100" alt="..."
+    .user-avatar.to.col-md-3
+      img.img-thumbnail src="http://placehold.it/100x100" alt="..."
+      span.name target user thumbnail
