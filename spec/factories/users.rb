@@ -8,6 +8,13 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     password { Faker::Internet.password }
     username { Faker::Internet.user_name(nil, %w(.)) }
+    bio { Faker::Lorem.sentence }
+
+    trait :with_profile_picture do
+      profile_picture_file_name { "test.png" }
+      profile_picture_content_type { "image/png" }
+      profile_picture_file_size { 1024 }
+    end
 
     trait :with_followings do
       after(:create) do |user, evaluator|

@@ -4,6 +4,22 @@ RSpec.describe User, type: :model do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
 
+  describe "#profile_picture_url" do
+    context "when the user has uploaded a profile picture" do
+      let(:user) { create(:user, :with_profile_picture) }
+
+      it "returns URL to that uploaded picture" do
+        expect(user.profile_picture_url).to eq(user.profile_picture.url)
+      end
+    end
+
+    context "when the user has not uploaded a profile picture" do
+      it "returns URL to the user's gravatar" do
+        expect(user.profile_picture_url).to eq(user.gravatar_url)
+      end
+    end
+  end
+
   describe "#follows?" do
     context "when passed another user that the user does not follow" do
       it "returns false" do
