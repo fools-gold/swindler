@@ -1,15 +1,38 @@
 .feeds-container {
-  * {
-    border: 1px solid;
-  }
   .user-avatar {
     .name {
       vertical-align: bottom;
     }
+    padding-top: 5px;
   }
   .played-boardgame {
     .name {
       vertical-align: bottom;
     }
+    padding-top: 5px;
+  }
+  p {
+    min-height: 50px;
+    margin: 0;
+  }
+  .text-feed{
+    border-top: 1px solid #999;
+  }
+  .feed-border {
+    border-top: 1px solid #11f;
+    border-bottom: 1px solid #11f;
+    margin-bottom: 5px;
+  }
+  .from {
+  border: 0px solid #000;
+  }
+  .proposition{
+  display: inline-block;
+  }
+  .feed-contents{
+    background-color: #25A7FC;
+  }
+  .no-padding{
+    padding: 0px;
   }
 }
