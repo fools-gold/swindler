@@ -346,6 +346,7 @@ GEM
     sucker_punch (1.4.0)
       celluloid (~> 0.16.0)
     temple (0.7.5)
+    terminal-notifier (1.6.3)
     terminal-notifier-guard (1.6.4)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
@@ -419,6 +420,7 @@ DEPENDENCIES
   spring
   spring-commands-rspec
   sucker_punch
+  terminal-notifier
   terminal-notifier-guard
   therubyracer
   turbolinks

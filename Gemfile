@@ -52,6 +52,7 @@ group :development do
   gem 'rubocop', require: false
   gem 'scss-lint', require: false
   gem 'spring'
+  gem 'terminal-notifier', require: false
   gem 'terminal-notifier-guard', require: false
   gem 'web-console'
 end

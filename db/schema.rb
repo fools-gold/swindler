@@ -51,16 +51,19 @@ ActiveRecord::Schema.define(version: 20150514164231) do
   add_index "games", ["slug"], name: "index_games_on_slug", unique: true, using: :btree
 
   create_table "stories", force: :cascade do |t|
-    t.text     "body",       null: false
-    t.integer  "by_id",      null: false
-    t.integer  "of_id",      null: false
-    t.integer  "game_id",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "body",               null: false
+    t.integer  "by_id",              null: false
+    t.integer  "of_id",              null: false
+    t.integer  "game_id",            null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   add_index "stories", ["by_id", "of_id", "game_id"], name: "index_stories_on_by_id_and_of_id_and_game_id", using: :btree
-  add_index "stories", ["by_id", "of_id"], name: "index_stories_on_by_id_and_of_id", using: :btree
   add_index "stories", ["by_id"], name: "index_stories_on_by_id", using: :btree
   add_index "stories", ["game_id"], name: "index_stories_on_game_id", using: :btree
   add_index "stories", ["of_id"], name: "index_stories_on_of_id", using: :btree
