@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe User, type: :model do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
+  let(:story) { create(:story) }
 
   describe "#profile_picture_url" do
     context "when the user has uploaded a profile picture" do
@@ -47,6 +48,21 @@ RSpec.describe User, type: :model do
       before { create(:followship, follower: other_user, followed: user) }
       it "returns true" do
         expect(user.followed_by? other_user).to be_truthy
+      end
+    end
+  end
+
+  describe "#likes?" do
+    context "when passed a story which is not liked by the user" do
+      it "returns false" do
+        expect(user.likes? story).to be_falsy
+      end
+    end
+
+    context "when passed a story which is liked by the user" do
+      before { create(:like, user: user, story: story) }
+      it "returns true" do
+        expect(user.likes? story).to be_truthy
       end
     end
   end

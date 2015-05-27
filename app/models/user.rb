@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :stories, foreign_key: "by_id", dependent: :destroy
   has_many :stories_of, foreign_key: "of_id", class_name: "Story", dependent: :destroy
   has_many :likes, dependent: :destroy
+  has_many :liked_stories, through: :likes, source: :story
 
   validates :username, presence: true, format: { with: /\A[a-z][a-z0-9.]+\Z/ }
   validates :username, uniqueness: true, case_sensitive: false
@@ -59,5 +60,9 @@ class User < ActiveRecord::Base
 
   def followed_by?(user)
     followers.include? user
+  end
+
+  def likes?(story)
+    liked_stories.include? story
   end
 end

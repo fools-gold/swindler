@@ -23,4 +23,8 @@ class Story < ActiveRecord::Base
   def must_not_make_story_of_oneself
     errors.add :of, "can't make story of oneself" if by == of
   end
+
+  def liked_by?(user)
+    likers.include? user
+  end
 end
