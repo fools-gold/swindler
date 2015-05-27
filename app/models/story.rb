@@ -3,6 +3,9 @@ class Story < ActiveRecord::Base
   belongs_to :of, class_name: "User", counter_cache: :stories_of_count
   belongs_to :game, counter_cache: true
 
+  has_many :likes, dependent: :destroy
+  has_many :likers, through: :likes, source: :user
+
   has_attached_file :photo,
     styles: { original: "1280x1280>", medium: "640x640>", thumb: "100x100>" },
     default_style: :medium

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable
 
   has_attached_file :profile_picture, styles: { thumb: "100x100>#", original: "500x500>#" }, default_style: :thumb
 
@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
 
   has_many :stories, foreign_key: "by_id", dependent: :destroy
   has_many :stories_of, foreign_key: "of_id", class_name: "Story", dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   validates :username, presence: true, format: { with: /\A[a-z][a-z0-9.]+\Z/ }
   validates :username, uniqueness: true, case_sensitive: false

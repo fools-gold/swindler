@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514164231) do
+ActiveRecord::Schema.define(version: 20150527114842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,20 +50,34 @@ ActiveRecord::Schema.define(version: 20150514164231) do
 
   add_index "games", ["slug"], name: "index_games_on_slug", unique: true, using: :btree
 
+  create_table "likes", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "story_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "likes", ["story_id", "user_id"], name: "index_likes_on_story_id_and_user_id", unique: true, using: :btree
+  add_index "likes", ["story_id"], name: "index_likes_on_story_id", using: :btree
+  add_index "likes", ["user_id", "story_id"], name: "index_likes_on_user_id_and_story_id", unique: true, using: :btree
+  add_index "likes", ["user_id"], name: "index_likes_on_user_id", using: :btree
+
   create_table "stories", force: :cascade do |t|
-    t.text     "body",               null: false
-    t.integer  "by_id",              null: false
-    t.integer  "of_id",              null: false
-    t.integer  "game_id",            null: false
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.text     "body",                           null: false
+    t.integer  "by_id",                          null: false
+    t.integer  "of_id",                          null: false
+    t.integer  "game_id",                        null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.integer  "likes_count",        default: 0, null: false
   end
 
   add_index "stories", ["by_id", "of_id", "game_id"], name: "index_stories_on_by_id_and_of_id_and_game_id", using: :btree
+  add_index "stories", ["by_id", "of_id"], name: "index_stories_on_by_id_and_of_id", using: :btree
   add_index "stories", ["by_id"], name: "index_stories_on_by_id", using: :btree
   add_index "stories", ["game_id"], name: "index_stories_on_game_id", using: :btree
   add_index "stories", ["of_id"], name: "index_stories_on_of_id", using: :btree
@@ -102,6 +116,8 @@ ActiveRecord::Schema.define(version: 20150514164231) do
 
   add_foreign_key "followships", "users", column: "followed_id", on_delete: :cascade
   add_foreign_key "followships", "users", column: "follower_id", on_delete: :cascade
+  add_foreign_key "likes", "stories", on_delete: :cascade
+  add_foreign_key "likes", "users", on_delete: :cascade
   add_foreign_key "stories", "games", on_delete: :cascade
   add_foreign_key "stories", "users", column: "by_id", on_delete: :cascade
   add_foreign_key "stories", "users", column: "of_id", on_delete: :cascade
