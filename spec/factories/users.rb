@@ -3,6 +3,7 @@ FactoryGirl.define do
     transient do
       followings_count 3
       followers_count 3
+      liked_stories_count 3
     end
 
     email { Faker::Internet.email }
@@ -25,6 +26,12 @@ FactoryGirl.define do
     trait :with_followers do
       after(:create) do |user, evaluator|
         create_list(:followship, evaluator.followers_count, followed: user)
+      end
+    end
+
+    trait :with_likes do
+      after(:create) do |user, evaluator|
+        create_list(:like, evaluator.liked_stories_count, user: user)
       end
     end
   end

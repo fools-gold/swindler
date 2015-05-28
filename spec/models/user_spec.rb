@@ -46,6 +46,7 @@ RSpec.describe User, type: :model do
 
     context "when passed another user who follows the user" do
       before { create(:followship, follower: other_user, followed: user) }
+
       it "returns true" do
         expect(user.followed_by? other_user).to be_truthy
       end
@@ -61,6 +62,7 @@ RSpec.describe User, type: :model do
 
     context "when passed a story which is liked by the user" do
       before { create(:like, user: user, story: story) }
+
       it "returns true" do
         expect(user.likes? story).to be_truthy
       end

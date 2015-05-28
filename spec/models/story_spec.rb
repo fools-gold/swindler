@@ -11,8 +11,9 @@ RSpec.describe Story, type: :model do
       end
     end
 
-    context "when passed an user who like the story" do
+    context "when passed an user who likes the story" do
       before { create(:like, user: user, story: story) }
+
       it "returns true" do
         expect(story.liked_by? user).to be_truthy
       end

@@ -7,7 +7,7 @@ RSpec.describe Likes::CreateService, type: :service do
 
   describe "#run!" do
     context "when the user does not like the story" do
-      it "creates a like between them" do
+      it "creates the user's like on the story" do
         service.run!
         expect(Like.where(user: user, story: story)).to exist
       end
