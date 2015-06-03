@@ -10,5 +10,6 @@ Rails.application.routes.draw do
   scope ":user_id", as: :user do
     resources :following, only: [:index, :create, :destroy], as: "followings", controller: "users/followings"
     resources :followers, only: [:index], controller: "users/followers"
+    resources :likes, only: [:index, :create, :destroy], controller: "users/likes"
   end
 end
