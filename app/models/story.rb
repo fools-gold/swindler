@@ -6,6 +6,9 @@ class Story < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_many :likers, through: :likes, source: :user
 
+  has_many :comments, dependent: :destroy
+  has_many :commenters, -> { distinct }, through: :comments, source: :user
+
   has_attached_file :photo,
     styles: { original: "1280x1280>", medium: "640x640>", thumb: "100x100>" },
     default_style: :medium

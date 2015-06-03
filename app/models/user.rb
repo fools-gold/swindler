@@ -22,6 +22,9 @@ class User < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_many :liked_stories, through: :likes, source: :story
 
+  has_many :comments, dependent: :destroy
+  has_many :commented_stories, through: :comments, source: :story
+
   validates :username, presence: true, format: { with: /\A[a-z][a-z0-9.]+\Z/ }
   validates :username, uniqueness: true, case_sensitive: false
   validates :bio, presence: true, allow_blank: true, length: { maximum: 140 }

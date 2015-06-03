@@ -11,10 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150527114842) do
+ActiveRecord::Schema.define(version: 20150603113125) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "story_id",   null: false
+    t.text     "text",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["story_id"], name: "index_comments_on_story_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "followships", force: :cascade do |t|
     t.integer  "follower_id", null: false
@@ -74,6 +85,7 @@ ActiveRecord::Schema.define(version: 20150527114842) do
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
     t.integer  "likes_count",        default: 0, null: false
+    t.integer  "comments_count",     default: 0, null: false
   end
 
   add_index "stories", ["by_id", "of_id", "game_id"], name: "index_stories_on_by_id_and_of_id_and_game_id", using: :btree
@@ -114,6 +126,8 @@ ActiveRecord::Schema.define(version: 20150527114842) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["slug"], name: "index_users_on_slug", unique: true, using: :btree
 
+  add_foreign_key "comments", "stories", on_delete: :cascade
+  add_foreign_key "comments", "users", on_delete: :cascade
   add_foreign_key "followships", "users", column: "followed_id", on_delete: :cascade
   add_foreign_key "followships", "users", column: "follower_id", on_delete: :cascade
   add_foreign_key "likes", "stories", on_delete: :cascade
