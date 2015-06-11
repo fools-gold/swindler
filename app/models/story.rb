@@ -6,7 +6,7 @@ class Story < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_many :likers, through: :likes, source: :user
 
-  has_many :comments, dependent: :destroy
+  has_many :comments, dependent: :destroy, counter_cache: true
   has_many :commenters, -> { distinct }, through: :comments, source: :user
 
   has_attached_file :photo,

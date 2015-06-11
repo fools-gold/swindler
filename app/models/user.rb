@@ -68,4 +68,8 @@ class User < ActiveRecord::Base
   def likes?(story)
     liked_stories.include? story
   end
+
+  def commented?(comment)
+    comments.include? comment
+  end
 end

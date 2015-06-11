@@ -68,4 +68,22 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe "#commented?" do
+    context "when passed a comment which is not commented by the user" do
+      let(:comment) { create(:comment, user: other_user) }
+
+      it "returns false" do
+        expect(user.commented? comment).to be_falsy
+      end
+    end
+
+    context "when passed a comment which is commented by the user" do
+      let(:comment) { create(:comment, user: user) }
+
+      it "returns true" do
+        expect(user.commented? comment).to be_truthy
+      end
+    end
+  end
 end
