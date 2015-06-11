@@ -4,6 +4,8 @@ FactoryGirl.define do
       followings_count 3
       followers_count 3
       liked_stories_count 3
+      stories_count 3
+      stories_of_count 3
     end
 
     email { Faker::Internet.email }
@@ -32,6 +34,18 @@ FactoryGirl.define do
     trait :with_likes do
       after(:create) do |user, evaluator|
         create_list(:like, evaluator.liked_stories_count, user: user)
+      end
+    end
+
+    trait :with_stories do
+      after(:create) do |user, evaluator|
+        create_list(:story, evaluator.stories_count, by: user)
+      end
+    end
+
+    trait :with_stories_of do
+      after(:create) do |user, evaluator|
+        create_list(:story, evaluator.stories_of_count, of: user)
       end
     end
   end

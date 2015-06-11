@@ -1,15 +1,15 @@
 .user-profile.col-sm-2 = render "user"
 .stories.col-sm-10[role="tabpanel"]
   ul.nav.nav-tabs[role="tablist"]
-    li.stories.active[role="presentation"]
-      a All
-    li.stories_by[role="presentation"]
-      = link_to "Stories by #{@user.username}", user_stories_path(@user)
+    li.stories[role="presentation"]
+      = link_to "All", user_path(@user)
+    li.stories_by.active[role="presentation"]
+      a Stories by #{@user.username}
     li.stories_of[role="presentation"]
       = link_to "Stories of #{@user.username}", user_stories_of_path(@user)
   .tab-content
-    .tab-pane.stories.active role="tabpanel"
+    .tab-pane.stories role="tabpanel"
+    .tab-pane.stories_by.active role="tabpanel"
       = render @stories
       = paginate @stories
-    .tab-pane.stories_by role="tabpanel"
     .tab-pane.stories_of role="tabpanel"
