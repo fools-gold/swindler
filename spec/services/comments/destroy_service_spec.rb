@@ -4,8 +4,8 @@ RSpec.describe Comments::DestroyService, type: :service do
   let(:user) { create(:user) }
   let(:other_user) { create(:user) }
   let(:story) { create(:story) }
-  let(:text) { Faker::Lorem.sentence }
-  let!(:comment) { create(:comment, user: user, story: story, text: text) }
+  let(:body) { Faker::Lorem.sentence }
+  let!(:comment) { create(:comment, user: user, story: story, body: body) }
 
   describe "#run!" do
     context "when the user does not commented the comment" do
@@ -25,7 +25,7 @@ RSpec.describe Comments::DestroyService, type: :service do
 
       it "destroys the comment" do
         service.run!
-        expect(Comment.where(user: user, story: story, text: text)).not_to exist
+        expect(Comment.where(user: user, story: story, body: body)).not_to exist
       end
 
       it "decrements comments count of the story" do

@@ -4,5 +4,5 @@ class Comment < ActiveRecord::Base
 
   validates :user, presence: true
   validates :story, presence: true
-  validates :text, length: { maximum: 140 }, presence: true
+  validates :body, length: { maximum: 140 }, presence: true
 end

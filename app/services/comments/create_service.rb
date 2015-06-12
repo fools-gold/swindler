@@ -1,13 +1,13 @@
 module Comments
   class CreateService
-    def initialize(user, story, text)
+    def initialize(user, story, body)
       @user = user
       @story = story
-      @text = text
+      @body = body
     end
 
     def run!
-      @story.comments.create(text: @text, user: @user)
+      @story.comments.create(user: @user, body: @body)
     end
   end
 end
