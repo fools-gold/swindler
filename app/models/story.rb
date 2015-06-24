@@ -20,11 +20,19 @@ class Story < ActiveRecord::Base
 
   validate :must_not_make_story_of_oneself
 
+  scope :recent, -> { order(created_at: :desc) }
+
   def must_not_make_story_of_oneself
     errors.add :of, "can't make story of oneself" if by == of
   end
 
   def liked_by?(user)
     likers.include? user
+  end
+
+  class << self
+    def related_to(user)
+      where("by_id = :user_id OR of_id = :user_id", user_id: user.id)
+    end
   end
 end
