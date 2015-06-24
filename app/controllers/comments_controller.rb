@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_story
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:create, :destroy]
   before_action :set_comment, only: :destroy
   before_action :authorize!, only: :destroy
 
@@ -12,6 +12,14 @@ class CommentsController < ApplicationController
   def destroy
     Comments::DestroyService.new(current_user, @comment).run!
     head :no_content
+  end
+
+  def index
+    @comments = @story.comments
+  end
+
+  def recent
+    @comments = @story.comments.order(created_at: :desc).limit(5)
   end
 
   private

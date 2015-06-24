@@ -6,6 +6,26 @@ RSpec.describe CommentsController, type: :controller do
   let(:story) { create(:story) }
   let(:other_user) { create(:user) }
 
+  describe "GET #index" do
+    let!(:comment) { create(:comment, user: user, story: story) }
+
+    it "shows the comments of the story" do
+      get :index, story_id: story
+      expect(response).to have_http_status(:ok)
+      expect(assigns :comments).to eq(story.comments)
+    end
+  end
+
+  describe "GET #recent" do
+    let!(:comment) { 10.times { create(:comment, user: user, story: story) } }
+
+    it "shows the recent 5 comments of the story" do
+      get :recent, story_id: story
+      expect(response).to have_http_status(:ok)
+      expect(assigns :comments).to eq(story.comments.order(created_at: :desc).limit(5))
+    end
+  end
+
   describe "POST #create" do
     context "when the user is signed in" do
       before { sign_in user }

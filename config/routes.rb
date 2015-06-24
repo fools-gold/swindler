@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   end
 
   resources :stories do
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [:index, :create, :destroy] do
+      get :recent, on: :collection
+    end
   end
 end
