@@ -18,7 +18,7 @@ RSpec.describe Users::FollowingsController, type: :controller do
 
       it "requires authorization" do
         post :create, user_id: other_user, id: user
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it "adds the user to current user's followings" do
@@ -44,7 +44,7 @@ RSpec.describe Users::FollowingsController, type: :controller do
 
       it "requires authorization" do
         delete :destroy, user_id: other_user, id: user
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it "removes the user from current user's followings" do
