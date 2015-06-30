@@ -25,7 +25,7 @@ module Users
     end
 
     def authorize!
-      head :unauthorized unless current_user == @user
+      head :forbidden unless current_user == @user
     end
   end
 end

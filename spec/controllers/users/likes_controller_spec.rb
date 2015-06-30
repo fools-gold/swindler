@@ -19,7 +19,7 @@ RSpec.describe Users::LikesController, type: :controller do
 
       it "requires authorization" do
         post :create, user_id: other_user, id: story
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it "adds the story to the user's liked stories" do
@@ -44,7 +44,7 @@ RSpec.describe Users::LikesController, type: :controller do
 
       it "requires authorization" do
         delete :destroy, user_id: other_user, id: story
-        expect(response).to have_http_status(:unauthorized)
+        expect(response).to have_http_status(:forbidden)
       end
 
       it "removes the story from current user's liked stories" do
