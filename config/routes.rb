@@ -12,4 +12,6 @@ Rails.application.routes.draw do
     resources :followers, only: [:index], controller: "users/followers"
     resources :likes, only: [:index, :create, :destroy], controller: "users/likes"
   end
+
+  resources :stories, only: [:index, :create, :destroy]
 end
