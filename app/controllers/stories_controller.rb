@@ -4,7 +4,7 @@ class StoriesController < ApplicationController
   before_action :authorize!, only: [:create, :destroy]
 
   def index
-    @stories = Story.all
+    @stories = Story.related_to current_user
   end
 
   def create
