@@ -1,0 +1,15 @@
+= form_tag "/stories", method: "post", multipart: true, class: "new-story-form"
+
+  .story-by
+    = image_tag current_user.profile_picture_url, class: "user-profile-picture"
+
+  .story-of
+    = text_field_tag "story[of]", nil, placeholder: "Story of", class: "form-control"
+
+  .story-while-playing
+    = text_field_tag "story[game]", nil, placeholder: "What were you playing?", class: "form-control"
+
+  = text_area_tag "story[body]", nil, placeholder: "Say something about him/her", class: "form-control"
+
+  button.btn.btn-primary type="submit"
+    ' Post
