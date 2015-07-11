@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: "users/registrations" }
 
+  resources :stories, only: [:index, :create, :destroy]
+
   get ":user_id", to: "users#show", as: :user
 
   scope ":user_id", as: :user do
@@ -14,6 +16,4 @@ Rails.application.routes.draw do
     resources :followers, only: [:index], controller: "users/followers"
     resources :likes, only: [:index, :create, :destroy], controller: "users/likes"
   end
-
-  resources :stories, only: [:index, :create, :destroy]
 end

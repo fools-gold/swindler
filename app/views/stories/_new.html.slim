@@ -1,15 +1,11 @@
-= form_tag "/stories", method: "post", multipart: true, class: "new-story-form"
-
+= simple_form_for @new_story, html: { class: "new-story-form" } do |f|
   .story-by
     = image_tag current_user.profile_picture_url, class: "user-profile-picture"
 
-  .story-of
-    = text_field_tag "story[of]", nil, placeholder: "Story of", class: "form-control"
+  = f.association :of, wrapper_html: { class: "story-of" }, label_method: :username
 
-  .story-while-playing
-    = text_field_tag "story[game]", nil, placeholder: "What were you playing?", class: "form-control"
+  = f.association :game, wrapper_html: { class: "story-while-playing" }
 
-  = text_area_tag "story[body]", nil, placeholder: "Say something about him/her", class: "form-control"
+  = f.input :body, wrapper_html: { class: "story-body" }
 
-  button.btn.btn-primary type="submit"
-    ' Post
+  = f.button :submit, "Post"
