@@ -6,7 +6,12 @@ img {
 }
 
 main {
-  @extend .container;
   padding-bottom: 50px;
   padding-top: 70px;
+}
+
+.container.without-sidebar {
+  margin: 0 auto;
+  max-width: 640px;
+  width: 100%;
 }
