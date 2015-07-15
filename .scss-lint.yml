@@ -13,3 +13,5 @@ linters:
     ignored_names: []
   StringQuotes:
     style: double_quotes
+  PlaceholderInExtend:
+    enabled: false # bootstrap
